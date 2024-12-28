@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import dashboardIcon from '/Dashboard.svg'; // Ensure this path is correct
-
+import { useNavigate } from 'react-router-dom';
 const Sidebar = () => {
   const [activeItem, setActiveItem] = useState('Dashboard');
-
+  const navigate = useNavigate()
   const mainNavItems = [
     {
       href: '#dashboard',
@@ -42,6 +42,15 @@ const Sidebar = () => {
 
   const handleNavClick = (label) => {
     setActiveItem(label);
+    if( label == "Learning"){
+      navigate('/Learning');
+    }else if ( label == "Dashboard"){
+      navigate('/dashboard');
+    }
+    // else if ( label == "Learning"){
+    //   navigate('/Learning');
+    // }
+    
   };
 
   return (

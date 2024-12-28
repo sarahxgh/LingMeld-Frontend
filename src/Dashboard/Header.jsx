@@ -1,6 +1,7 @@
 import React from 'react';
 
-const Header = () => {
+const Header = (page) => {
+  page = "Dashboard"
   return (
     <header className="flex flex-wrap justify-between items-center w-full max-w-[1586px] px-4 py-3">
       {/* Breadcrumb Navigation */}
@@ -8,7 +9,7 @@ const Header = () => {
         <ol className="flex items-center">
           <li className="text-xs text-slate-400">Pages</li>
           <li className="text-xs text-slate-800 ml-1" aria-current="page">
-            / Dashboard
+            / {page}
           </li>
         </ol>
       </nav>
