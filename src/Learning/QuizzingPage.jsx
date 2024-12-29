@@ -1,9 +1,10 @@
 import React, { useEffect } from "react";
-import QuizCard from "../Components/QuizCard";
-import { prompts } from "../Utils/Prompts";
+import { prompts } from "../Utils/EnglishPrompts";
 import { useLocation } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
+import MCQuizCard from "../Components/MCQuizCard";
+import WAQuizCard from "../Components/WAQuizCard";
 
 
 // const quizData = {
@@ -48,7 +49,7 @@ function QuizzingPage() {
     const data = location.state;
     const Category = data["category"];
     const type = data["type"];
-  
+
     useEffect(() => {
       const fetchQuizData = async () => {
         try {
@@ -98,15 +99,19 @@ function QuizzingPage() {
         <h1 className="text-2xl font-bold mb-4">Quiz Slider</h1>
   
         {/* Render Quiz Card only if quizData is available */}
-        {quizData && currentExercise && (
+        {quizData && currentExercise &&(
           <>
-            <QuizCard
+            {(currentExercise["exercise type"]=="multiple choices")&&(<MCQuizCard
               instructions={quizData.instructions}
               sentence={currentExercise.sentence}
               options={currentExercise.options}
-              Explanation={currentExercise.solution.wrong_answer_explanation}
               solution={currentExercise.solution}
-            />
+            />)}
+            {(currentExercise["exercise type"]=="writing an answer")&&(<WAQuizCard
+              instructions={quizData.instructions}
+              sentence={currentExercise.sentence}
+              solution={currentExercise.solution}
+            />)}
   
             {/* Navigation Arrows */}
             <div className="flex justify-between w-full mt-4">

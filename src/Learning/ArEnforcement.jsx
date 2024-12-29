@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { exerciseTypes } from '../Utils/Prompts';
+import { exerciseTypes } from '../Utils/EnglishPrompts';
 
 function ArabicEnforcement() {
     const navigate = useNavigate();

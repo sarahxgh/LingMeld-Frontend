@@ -1,6 +1,6 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
-import { exerciseTypes } from "../Utils/Prompts";
+import { exerciseTypes } from "../Utils/EnglishPrompts";
 import { useNavigate } from "react-router-dom";
 
 function Details () {

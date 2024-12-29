@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 
-function QuizCard( {instructions, sentence, options, Explanation, solution} ) {
+function MCQuizCard( {instructions, sentence, options, solution} ) {
     const [selectedOption, setSelectedOption] = useState(null);
     const [isAnswered, setIsAnswered] = useState(false);
     const [feedback, setFeedback] = useState('');
@@ -103,4 +103,4 @@ function QuizCard( {instructions, sentence, options, Explanation, solution} ) {
 
     );
 }
-export default QuizCard;
+export default MCQuizCard;
