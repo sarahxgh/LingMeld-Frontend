@@ -47,9 +47,9 @@ const Sidebar = () => {
     }else if ( label == "Dashboard"){
       navigate('/dashboard');
     }
-    // else if ( label == "Learning"){
-    //   navigate('/Learning');
-    // }
+    else if ( label == "Settings"){
+      navigate('/Settings');
+    }
     
   };
 

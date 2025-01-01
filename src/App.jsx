@@ -11,6 +11,7 @@ import DashboardPage from './Dashboard/DashboardPage';
 import ArabicEnforcement from './Learning/ArEnforcement';
 import Details from './Learning/Details';
 import QuizzingPage from './Learning/QuizzingPage';
+import SettingsPage from './Dashboard/SettingsPage';
 
 function App() {
   const [count, setCount] = useState(0)
@@ -24,6 +25,7 @@ function App() {
         <Route path="/ArEnforcement" element={<ArabicEnforcement/>} />
         <Route path='/Details' element={<Details/>}/>
         <Route path='/QuizzingPage' element={<QuizzingPage/>}/>
+        <Route path='/Settings' element={<SettingsPage/>} />
         </Route> {/* Define the layout of the dashboard pages */}
 
         <Route index element={<HomePage />} />
