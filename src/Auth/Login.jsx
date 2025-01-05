@@ -1,7 +1,43 @@
-import React from "react";
+import React, { useState } from "react";
 import logo from "/logo.svg";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 export default function LoginPage() {
+// define the user information state 
+    const [formData, setFormData] = useState({
+        "email":"", 
+        "password" : "",
+    })
+
+    // filling the form
+    const handleChange = (e) => {
+        const { name, value } = e.target; 
+        setFormData({
+        ...formData, 
+        [name]: value, 
+        });
+    }
+    // handling login
+    const HandleLogin = async() =>{
+        // send the login request
+        try{
+            const response = await axios.post("http://127.0.0.1:8000/user/Login/",formData)
+            if(response.data.success){
+                console.log('login success')
+
+                localStorage.setItem("email",formData.email)
+                navigate("/dashboard",{state:{
+                    img : response.data['image'], 
+                    username : response.data['username']
+                }})
+            }else{
+                console.log("login error")
+                console.log(response.data.message)
+            }
+        }catch(e){
+           console.log('An error happened',e)
+        }
+    }
     const navigate = useNavigate()
     const goToHomepage  = () =>{
        navigate('/')
@@ -62,7 +98,9 @@ export default function LoginPage() {
                     <input
                         id="email"
                         type="email"
+                        name="email"
                         placeholder="email"
+                        onChange={handleChange}
                         className="w-full mt-1 px-3 py-2 border rounded-lg focus:outline-none focus:ring-1 focus:ring-[#9BFD34] focus:border-[#9BFD34] pl-10"
                     />
                     <img
@@ -77,7 +115,9 @@ export default function LoginPage() {
                     <input
                         id="password"
                         type="password"
+                        name="password"
                         placeholder="password"
+                        onChange={handleChange}
                         className="w-full mt-1 px-3 py-2 border rounded-lg focus:outline-none focus:ring-1 focus:ring-[#9BFD34] focus:border-[#9BFD34] pl-10"
                     />
                     <img
@@ -102,7 +142,7 @@ export default function LoginPage() {
                 </div>
 
                 {/* Login Button */}
-                <button className="w-full bg-gradient-to-t from-[#9BFD34] via-[#B6FA33] to-[#C3F933] text-white py-2 rounded-lg font-medium focus:border-none hover:border-none">
+                <button onClick={HandleLogin} className="w-full bg-gradient-to-t from-[#9BFD34] via-[#B6FA33] to-[#C3F933] text-white py-2 rounded-lg font-medium focus:border-none hover:border-none">
                     Log In
                 </button>
 
