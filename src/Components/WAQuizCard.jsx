@@ -47,7 +47,7 @@ function WAQuizCard({ instructions, sentence, solution }) {
                 </section>
 
                 <div className="mt-6">
-                    <p className="text-xl">{sentence}</p>
+                    <p className="text-xl text-black">{sentence}</p>
 
                     <div className="mt-4">
                         <input
