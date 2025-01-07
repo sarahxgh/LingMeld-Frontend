@@ -11,9 +11,13 @@ import LearningPage from './Dashboard/LearningPage';
 import DashboardPage from './Dashboard/DashboardPage';
 import Details from './Learning/Details';
 import QuizzingPage from './Learning/QuizzingPage';
+
+import SettingsPage from './Dashboard/SettingsPage';
+import Translation from './Learning/Translation'
 import EnglishEnforcement from './Learning/EnEnforcement';
 import { UserAnswerProvider } from './Assessment context/userAnswersContext';
 import {  AuthProvider } from './Auth/AuthContext';
+import TranslatorApp from './Dashboard/PdfTranslationPage'
 import { Chatbot } from './chatbot/chatbot';
 import TestPage from './StaticTest/TestPage';
 
@@ -33,6 +37,8 @@ function App() {
               <Route path='/QuizzingPage' element={<QuizzingPage />} />
               <Route path='/Chatbot' element= {<Chatbot></Chatbot>}/>
               <Route path='/StaticTest' element={<TestPage></TestPage>}/>
+                <Route path='/translation' element={<Translation/>}/>
+              <Route path='/pdftranslation' element={<TranslatorApp />} />
             </Route> {/* Define the layout of the dashboard pages */}
 
             <Route index element={<HomePage />} />

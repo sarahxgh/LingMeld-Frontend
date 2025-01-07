@@ -21,7 +21,7 @@ const Sidebar = () => {
       label: 'Learning',
     },
     {
-      href: '#quizzes',
+      href: '#pdftranslation',
       icon: 'https://cdn.builder.io/api/v1/image/assets/TEMP/0dc4aad32278700057c0bc5602aff5da5b2d4937a3aa25e4118361c6b5f21e1a',
       label: 'PDF Translation',
     },
@@ -46,6 +46,13 @@ const Sidebar = () => {
       navigate('/Learning');
     }else if ( label == "Dashboard"){
       navigate('/dashboard');
+    }
+
+    else if ( label == "Settings"){
+      navigate('/Settings');
+    }
+    else if ( label == "PDF Translation"){
+      navigate('/pdftranslation')
     }
     else if ( label == "Chatbot"){
       navigate('/Chatbot');
