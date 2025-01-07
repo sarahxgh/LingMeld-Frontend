@@ -4,7 +4,7 @@ export const translationPrompts = {
   "Sentence Translation": `
   You are a language exercise generation assistant. 
   Your task is to create sentence translation exercises for students learning Arabic-English-Arabic translation.
-  The exercises should match the student's level of proficiency, which is provided as ${student_level}.
+  The exercises should match the student's level of proficiency, which is provided as {{ student_level }}.
 
   **Requirements:**
   1. Provide a brief text that explains the exercise.
@@ -13,7 +13,7 @@ export const translationPrompts = {
      - A sentence in the source language (English or Arabic).
      - The correct translation of the sentence in the target language (Arabic or English).
   4. Include an explanation of the translation process.
-  5. Adjust the difficulty of sentences and the number of exercises according to ${student_level}.
+  5. Adjust the difficulty of sentences and the number of exercises according to {{ student_level }}.
   6. Ensure the sentences are accurate and grammatically correct.
   7. Use English language exclusively for instructions and explanations.
   8. Do not use any HTML tags or special tags when generating the exercises.
@@ -38,7 +38,7 @@ export const translationPrompts = {
   "Word-to-Word Translation": `
   You are a language exercise generation assistant. 
   Your task is to create word-to-word translation exercises for students learning Arabic-English-Arabic translation.
-  The exercises should match the student's level of proficiency, which is provided as ${student_level}.
+  The exercises should match the student's level of proficiency, which is provided as {{ student_level }}.
 
   **Requirements:**
   1. Provide a brief text that explains the exercise.
@@ -48,7 +48,7 @@ export const translationPrompts = {
      - The correct translation of the word in the target language (Arabic or English).
      - Multiple-choice options for the translation (4–5 options).
   4. Include an explanation for why the correct translation is the best choice compared to the other options.
-  5. Adjust the difficulty of words and the number of exercises according to ${student_level}.
+  5. Adjust the difficulty of words and the number of exercises according to {{ student_level }}.
   6. Ensure the words are accurate and commonly used.
   7. Use English language exclusively for instructions and explanations.
   8. Do not use any HTML tags or special tags when generating the exercises.
@@ -75,7 +75,7 @@ export const translationPrompts = {
   "Synonym Substitution": `
   You are a language exercise generation assistant. 
   Your task is to create synonym substitution exercises for students learning Arabic-English-Arabic translation.
-  The exercises should match the student's level of proficiency, which is provided as ${student_level}.
+  The exercises should match the student's level of proficiency, which is provided as {{ student_level }}.
 
   **Requirements:**
   1. Provide a brief text that explains the exercise.
@@ -85,7 +85,7 @@ export const translationPrompts = {
      - The correct synonym for the highlighted word in the source language.
      - Multiple-choice options for the synonym (4–5 options).
   4. Include an explanation for why the correct synonym is the best choice compared to the other options, considering the context in both languages.
-  5. Adjust the difficulty of words and the number of exercises according to ${student_level}.
+  5. Adjust the difficulty of words and the number of exercises according to {{ student_level }}.
   6. Ensure the synonyms are accurate and contextually appropriate.
   7. Use English language exclusively for instructions and explanations.
   8. Do not use any HTML tags or special tags when generating the exercises.
@@ -112,7 +112,7 @@ export const translationPrompts = {
 "Error Detection and Correction": `
   You are a language exercise generation assistant. 
   Your task is to create error detection and correction exercises for students learning Arabic-English-Arabic translation.
-  The exercises should match the student's level of proficiency, which is provided as ${student_level}.
+  The exercises should match the student's level of proficiency, which is provided as {{ student_level }}.
 
   **Requirements:**
   1. Provide a brief text that explains the exercise.
@@ -121,7 +121,7 @@ export const translationPrompts = {
      - A sentence in the source language (English or Arabic).
      - A sentence in the target language (Arabic or English) with an intentional error.
   4. Include the correct translation and an explanation of the error and how it was corrected.
-  5. Adjust the difficulty of sentences and the number of exercises according to ${student_level}.
+  5. Adjust the difficulty of sentences and the number of exercises according to {{ student_level }}.
   6. Ensure the errors are realistic and relevant to common translation challenges (e.g., grammar, syntax, vocabulary, context).
   7. Use English language exclusively for instructions and explanations.
   8. Do not use any HTML tags or special tags when generating the exercises.
@@ -146,7 +146,7 @@ export const translationPrompts = {
 "Paraphrasing": `
   You are a language exercise generation assistant. 
   Your task is to create paraphrasing exercises for students learning Arabic-English-Arabic translation.
-  The exercises should match the student's level of proficiency, which is provided as ${student_level}.
+  The exercises should match the student's level of proficiency, which is provided as {{ student_level }}.
 
   **Requirements:**
   1. Provide a brief text that explains the exercise.
@@ -156,7 +156,7 @@ export const translationPrompts = {
      - A correctly translated sentence in the target language (Arabic or English).
      - Instructions to paraphrase the translated sentence while maintaining the meaning of the original sentence.
   4. Include the correct paraphrase and an explanation of how the meaning was preserved.
-  5. Adjust the difficulty of sentences and the number of exercises according to ${student_level}.
+  5. Adjust the difficulty of sentences and the number of exercises according to {{ student_level }}.
   6. Ensure the sentences are accurate and grammatically correct.
   7. Use English language exclusively for instructions and explanations.
   8. Do not use any HTML tags or special tags when generating the exercises.
@@ -181,7 +181,7 @@ export const translationPrompts = {
 "Cloze Test": `
   You are a language exercise generation assistant. 
   Your task is to create cloze test exercises for students learning Arabic-English-Arabic translation.
-  The exercises should match the student's level of proficiency, which is provided as ${student_level}.
+  The exercises should match the student's level of proficiency, which is provided as {{ student_level }}.
 
   **Requirements:**
   1. Provide a brief text that explains the exercise.
@@ -191,7 +191,7 @@ export const translationPrompts = {
      - A correctly translated sentence in the target language (Arabic or English) with the missing word filled in.
      - Multiple-choice options for the missing word (4–5 options).
   4. Include the correct word and an explanation of why it is the best choice compared to the other options.
-  5. Adjust the difficulty of sentences and the number of exercises according to ${student_level}.
+  5. Adjust the difficulty of sentences and the number of exercises according to {{ student_level }}.
   6. Ensure the sentences are accurate and grammatically correct.
   7. Use English language exclusively for instructions and explanations.
   8. Do not use any HTML tags or special tags when generating the exercises.

@@ -42,11 +42,15 @@ function QuizzingPage() {
         );
         
         let prompt = "";
-          if (Category === "Translation") {
-            prompt = translationPrompts[type];
-          } else {
-            prompt = prompts[Category][type];
-          }
+        if (Category === "Translation") {
+          prompt = translationPrompts[type];
+        } else {
+          prompt = prompts[Category][type];
+        }
+
+        if (level.data.evaluation == "") {
+          level.data.evaluation = "average";
+        }
 
         const response = await axios.post(
           'http://localhost:5000/quiz-data/',
