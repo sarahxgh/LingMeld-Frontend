@@ -68,7 +68,7 @@ function QuizzingPage() {
     const saveAnswers = async () => {
       try {
 
-        if (userAnswers && userAnswers.length > 0 ) {
+        if (userAnswers &&userAnswers.userAnswer && userAnswers.length > 0 ) {
           console.log('inside request')
           const response = await axios.post(
             'http://127.0.0.1:8000/user/save-user-answers/',
@@ -96,11 +96,11 @@ function QuizzingPage() {
     };
     const interval = setInterval(() => {
       saveAnswers();
-    }, 100000);
+    }, 1000);
 
     return () => clearInterval(interval);
 
-  });
+  },[userAnswers.userAnswer]);
 
   const handleNext = () => {
     setCurrentIndex((prevIndex) =>

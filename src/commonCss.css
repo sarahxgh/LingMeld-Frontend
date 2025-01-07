@@ -1,0 +1,29 @@
+/* Styling for the scrollbar */
+::-webkit-scrollbar {
+    width: 12px; /* Set the width of the scrollbar */
+    height: 12px; /* Set the height of the scrollbar for horizontal scrolling */
+  }
+  
+  /* Styling for the scrollbar track (background) */
+  ::-webkit-scrollbar-track {
+    background-color: #f1f1f1; /* Light background for the track */
+    border-radius: 10px; /* Rounded corners for the track */
+  }
+  
+  /* Styling for the scrollbar thumb (the draggable part) */
+  ::-webkit-scrollbar-thumb {
+    background-color: #ababab; /* Green color for the thumb */
+    border-radius: 10px; /* Rounded corners for the thumb */
+    border: 3px solid #f1f1f1; /* Adding border around thumb */
+  }
+  
+  /* On hover, change the thumb color */
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: #ababab; /* Darker green when hovered */
+  }
+  
+  /* Styling for the scrollbar corner (where horizontal and vertical scrollbars meet) */
+  ::-webkit-scrollbar-corner {
+    background-color: #f1f1f1; /* Set background color for the corner */
+  }
+  

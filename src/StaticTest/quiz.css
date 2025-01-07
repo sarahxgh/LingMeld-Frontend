@@ -1,0 +1,189 @@
+@import url('https://fonts.googleapis.com/css2?family=Anek+Malayalam:wght@100;200;300;400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.quiz-container .active-question-no {
+  font-size: 32px;
+  font-weight: 500;
+  color: #008006;
+}
+
+.quiz-container .total-question {
+  font-size: 16px;
+  font-weight: 500;
+  color: #e0dee3;
+}
+
+.quiz-container h2 {
+  font-size: 20px;
+  font-weight: 500;
+  margin: 0;
+}
+
+.quiz-container ul {
+  margin-top: 20px;
+  margin-left: -40px;
+}
+
+.quiz-container ul li {
+  text-decoration: none;
+  list-style: none;
+  color: #2d264b;
+  font-size: 16px;
+  background: #ffffff;
+  border: 1px solid #eaeaea;
+  border-radius: 16px;
+  padding: 11px;
+  margin-top: 15px;
+  cursor: pointer;
+}
+
+.quiz-container ul .selected-answer {
+  background: #eaffd6;
+  border: 1px solid #008006;
+}
+
+
+.flex-right {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.result h3 {
+  font-size: 24px;
+  letter-spacing: 1.4px;
+  text-align: center;
+}
+
+.result p {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.result p span {
+  color: #008006;
+  font-size: 22px;
+}
+
+  
+  .quiz-h2 {
+    font-size: 18px;
+    margin-bottom: 20px;
+  }
+  
+  .quiz-ul {
+    list-style: none;
+    padding: 0;
+    display: contents;
+  }
+  
+  .quiz-li {
+    background-color: #e6e6e6;
+    padding: 10px;
+    margin: 5px 0;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+  }
+  
+  .quiz-li:hover {
+    background-color: #ccc;
+  }
+  
+  .selected-answer {
+    background-color: #4caf50;
+    color: white;
+  }
+  
+  .flex-right {
+    text-align: right;
+  }
+  
+  
+  .result {
+    text-align: center;
+  }
+  
+  .result p {
+    font-size: 16px;
+  }
+  
+  .result span {
+    font-weight: bold;
+  }
+  
+  /* Style the container to space out the buttons */
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+  }
+  
+  /* Style for the Back button */
+  .back-btn {
+    padding: 12px 24px;
+    margin: 8px;
+    background-image: linear-gradient(45deg, #50c90b, #b2ee26); /* Reverse gradient effect on hover */
+    color: white;
+    font-weight: 600;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: none;
+    cursor: pointer;
+    transition: background-image 0.3s ease, transform 0.3s ease;
+  }
+  
+  .back-btn:hover {
+    background-image: linear-gradient(45deg, #49b60a, #9cd121); /* Reverse gradient effect on hover */
+    transform: scale(1.05); /* Slight scaling effect on hover */
+  }
+  
+  /* Style for the Next button */
+  .next-btn {
+    padding: 12px 24px;
+    margin: 8px;
+    background-image: linear-gradient(45deg, #50c90b, #b2ee26); /* Reverse gradient effect on hover */
+    color: white;
+    font-weight: 600;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: none;
+    cursor: pointer;
+    transition: background-image 0.3s ease, transform 0.3s ease;
+  }
+  
+  .next-btn:hover {
+    background-image: linear-gradient(45deg, #49b60a, #9cd121); /* Reverse gradient effect on hover */
+    transform: scale(1.05); /* Slight scaling effect on hover */
+  }
+  
+/* Style the Textarea */
+.textarea {
+    padding: 12px 16px;
+    margin: 8px 0;
+    width: 100%;
+    color: #333;
+    font-size: 16px;
+    font-weight: 500;
+    border: 1px solid #a3a3a3; /* Initial border color */
+    border-radius: 8px;
+    outline: none;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-image 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+    resize: vertical; /* Allow vertical resizing */
+  }
+  
+  /* Active (focused) Textarea - Change border color */
+  .textarea:focus {
+    border-color: #008006; /* Border turns darker blue when focused */
+    transform: scale(1.02); /* Slight scaling effect when focused */
+  }
+  
+  /* Optional: On hover, change the background */
+  .textarea:hover {
+    border-color: #50c90b; /* Border turns darker blue when focused */
+  }
+  

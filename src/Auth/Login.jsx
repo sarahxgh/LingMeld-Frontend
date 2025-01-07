@@ -31,7 +31,12 @@ export default function LoginPage() {
 
                 localStorage.setItem("email",formData.email)
                 setUserEmail(formData.email)
-                navigate("/dashboard")
+                if(response.data.taken_test){
+                    navigate("/dashboard")
+                }else{
+                    navigate('/StaticTest')
+                }
+                
             }else{
                 console.log("login error")
                 console.log(response.data.message)

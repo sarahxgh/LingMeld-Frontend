@@ -47,9 +47,12 @@ const Sidebar = () => {
     }else if ( label == "Dashboard"){
       navigate('/dashboard');
     }
-    // else if ( label == "Learning"){
-    //   navigate('/Learning');
-    // }
+    else if ( label == "Chatbot"){
+      navigate('/Chatbot');
+    }else if(label == "Log out"){
+      localStorage.setItem("email","")
+      navigate('/')
+    }
     
   };
 

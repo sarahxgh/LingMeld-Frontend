@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import './App.css'
 import "./index.css";
+import './commonCss.css'; // Import your common CSS file here
 import LoginPage from './Auth/Login';
 import DashboardLayout from './Dashboard/DashboardLayout';
 import HomePage from './HomePage';
@@ -13,6 +14,8 @@ import QuizzingPage from './Learning/QuizzingPage';
 import EnglishEnforcement from './Learning/EnEnforcement';
 import { UserAnswerProvider } from './Assessment context/userAnswersContext';
 import {  AuthProvider } from './Auth/AuthContext';
+import { Chatbot } from './chatbot/chatbot';
+import TestPage from './StaticTest/TestPage';
 
 function App() {
   const [count, setCount] = useState(0)
@@ -28,6 +31,8 @@ function App() {
               <Route path="/EnEnforcement" element={<EnglishEnforcement />} />
               <Route path='/Details' element={<Details />} />
               <Route path='/QuizzingPage' element={<QuizzingPage />} />
+              <Route path='/Chatbot' element= {<Chatbot></Chatbot>}/>
+              <Route path='/StaticTest' element={<TestPage></TestPage>}/>
             </Route> {/* Define the layout of the dashboard pages */}
 
             <Route index element={<HomePage />} />
