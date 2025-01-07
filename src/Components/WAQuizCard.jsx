@@ -1,10 +1,14 @@
 import React, { useState } from "react";
+import { UserAnswerContext } from "../Assessment context/userAnswersContext";
+import { useContext } from "react";
 
-function WAQuizCard({ instructions, sentence, solution }) {
+// writing an answer quizz card
+function WAQuizCard({ type , instructions, sentence, solution, attempts, setAttempts, handleNext }) {
     const [userAnswer, setUserAnswer] = useState('');
     const [isAnswered, setIsAnswered] = useState(false);
     const [feedback, setFeedback] = useState('');
     const [explanation, setExplanation] = useState('');
+    const { addUserAnswer } = useContext(UserAnswerContext);
 
     const closePopup = () => {
         setIsAnswered(false);
@@ -19,30 +23,29 @@ function WAQuizCard({ instructions, sentence, solution }) {
     };
 
     const handleSubmit = () => {
+        console.log("the number of teh attempts :",attempts)
         setIsAnswered(true);
         const correctOption = solution.correct_option;
-        console.log("From the submit answer function")
-        console.log(solution.correct_option)
-        console.log(solution.explanation)
-        console.log(userAnswer)
 
         if (userAnswer.toLowerCase().trim() === correctOption.toLowerCase()) {
             setFeedback('Correct! ' + solution.explanation);
-            setUserAnswer('')
-            setExplanation('');  // No need for additional explanation when correct
+            setExplanation('');
         } else {
             setFeedback('Incorrect. ' + solution.explanation);
             setExplanation(solution.wrong_answer_explanation);
+            setAttempts((prevAttempts) => prevAttempts + 1);
         }
-        
-        // setUserAnswer('')
+
+        if (attempts >= 2) {
+            handleNext();  // Automatically go to next question after two attempts
+        }
     };
 
     return (
         <div className="bg-white pt-2 rounded-lg" style={{ width: 'calc(100vw - 260px)' }}>
             <div id="quiz" className="max-w-fit mx-auto flex flex-col justify-center bg-white rounded-lg shadow-lg mt-12 py-8 px-6">
                 <section className="bg-gradient-to-t from-[#9BFD34] via-[#B6FA33] to-[#C3F933] text-white text-center py-8 rounded-t-lg">
-                    <h2 className="text-3xl font-bold">Synonyms Matching</h2>
+                    <h2 className="text-3xl font-bold">{type}</h2>
                     <p className="mt-4 text-black">{instructions}</p>
                 </section>
 
@@ -53,7 +56,13 @@ function WAQuizCard({ instructions, sentence, solution }) {
                         <input
                             type="text"
                             value={userAnswer}
-                            onChange={handleAnswerChange}
+                            onChange={() => {
+                                handleAnswerChange();
+                                addUserAnswer(instructions + "\n" + sentence, solution.correct_option, userAnswer);
+
+                            }
+
+                            }
                             placeholder="Enter your answer"
                             className="mt-2 px-6 py-3 w-full bg-white text-green-600 rounded hover:bg-gray-100"
                             disabled={isAnswered}
@@ -101,7 +110,7 @@ function WAQuizCard({ instructions, sentence, solution }) {
                         <button
                             onClick={handleSubmit}
                             className="px-6 py-2 bg-blue-500 text-white rounded hover:bg-blue-700"
-                            disabled={isAnswered}
+                            disabled={isAnswered || attempts >= 2}
                         >
                             Submit Answer
                         </button>

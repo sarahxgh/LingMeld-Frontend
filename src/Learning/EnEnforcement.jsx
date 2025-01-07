@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { exerciseTypes } from '../Utils/EnglishPrompts';
 
-function ArabicEnforcement() {
+function EnglishEnforcement() {
     const navigate = useNavigate();
     return (
         <div className="bg-gray-100 py-2 rounded-lg flex flex-col bg-white justify-center" style={{ width: 'calc(100vw - 260px)' }}>
@@ -30,5 +30,5 @@ function ArabicEnforcement() {
         // </div>
     );
 }
-export default ArabicEnforcement;
+export default EnglishEnforcement;
 

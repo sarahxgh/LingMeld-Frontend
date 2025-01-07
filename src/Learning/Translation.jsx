@@ -8,15 +8,10 @@ function Translation() {
   const translationExercises = [
     "Sentence Translation",
     "Word-to-Word Translation",
-    "Contextual Translation",
-    "Paraphrasing/Restating",
-    "Cloze Test (Fill-in-the-blank Translation)",
+    "Paraphrasing",
+    "Cloze Test",
     "Synonym Substitution",
     "Error Detection and Correction",
-    "Cultural Context Translation",
-    "Rewriting for Style and Tone",
-    "Multiple Choice Translation",
-    "Contextual Vocabulary Translation",
   ];
 
   // Handle exercise click

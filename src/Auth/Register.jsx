@@ -1,15 +1,78 @@
-import React from "react";
+import React, { useState } from "react";
 import logo from "/logo.svg";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 export default function Register() {
-    const navigate = useNavigate()
-    const goToHomepage  = () =>{
-       navigate('/')
+    const [formData, setFormData] = useState({
+        "email": "",
+        "password": "",
+        "username": "",
+        "confirmpassword": "",
+        "img": ""
+    })
+    const [message, setMessage] = useState('')
+
+    const objectUrl = formData.img ? window.URL.createObjectURL(formData.img) : "/img_placeholder.svg";
+
+    const handleChange = (event) => {
+        setMessage('')
+        console.log(formData)
+        const { name, value, files } = event.target;
+        if (name === 'img' && files && files[0]) {
+            setFormData(prevData => ({
+                ...prevData,
+                img: event.target.files[0]
+            }));
+        } else {
+            setFormData(prevData => ({
+                ...prevData,
+                [name]: value
+            }));
+        }
+    };
+
+    const HandleRegister = async () => {
+        try {
+            // sending rhe register request
+            console.log(formData.password, formData.confirmpassword)
+            if (formData.password == formData.confirmpassword && formData.img) {
+                const response = await axios.post('http://127.0.0.1:8000/user/Register/', formData,
+                {headers : {
+                    'Content-Type': 'multipart/form-data',
+                }})
+                if (response.data.success) {
+                    console.log("registered successfully")
+                    navigate('/Login')
+                } 
+                else if (response.data.message == "This email already exists!") {
+                    setMessage(response.data.message)
+                    console.log("This email already exists!")
+                }
+                else{
+                    console.log(response.data.message)
+                    console.log("error happened")
+                }
+
+            }else{
+                setMessage("password must much the confirm password feild")
+            }
+
+        } catch (e) {
+            console.log(e)
+        }
     }
 
-    const goToLoginpage  = () =>{
+    const closemessage = () => {
+        setMessage('')
+    }
+    const navigate = useNavigate()
+    const goToHomepage = () => {
+        navigate('/')
+    }
+
+    const goToLoginpage = () => {
         navigate('/Login')
-     }
+    }
     return (
         <div className="w-screen  flex flex-col items-center justify-center bg-[#FAFAFA]">
             {/* Navbar */}
@@ -56,13 +119,35 @@ export default function Register() {
                 <h1 className="text-2xl font-bold text-center text-gray-800 mb-6">
                     Sign Up
                 </h1>
+                {/* Image input field */}
+                <div className="flex items-center justify-center">
+                    <label className="relative cursor-pointer">
+                        <input
+                            name="img"
+                            type="file"
+                            accept="image/*"
+                            className="absolute inset-0 opacity-0 cursor-pointer"
+                            onChange={handleChange}
+                        />
+                        <div className="w-20 h-20 rounded-full overflow-hidden border-4 border-[#9BFD34] bg-gray-100 flex items-center justify-center">
+                            <img
+                                src={objectUrl}
+                                name = "img"
+                                alt="Upload a user image"
+                                className=" object-cover"
+                            />
+                        </div>
+                    </label>
+                </div>
 
                 {/* User name input */}
                 <div className="mb-4 relative">
                     <input
                         id="username"
                         type="text"
+                        name="username"
                         placeholder="username"
+                        onChange={handleChange}
                         className="w-full mt-1 px-3 py-2 border rounded-lg focus:outline-none focus:ring-1 focus:ring-[#9BFD34] focus:border-[#9BFD34] pl-10"
                     />
                     <img
@@ -77,7 +162,9 @@ export default function Register() {
                     <input
                         id="email"
                         type="email"
+                        name="email"
                         placeholder="email"
+                        onChange={handleChange}
                         className="w-full mt-1 px-3 py-2 border rounded-lg focus:outline-none focus:ring-1 focus:ring-[#9BFD34] focus:border-[#9BFD34] pl-10"
                     />
                     <img
@@ -92,7 +179,9 @@ export default function Register() {
                     <input
                         id="password"
                         type="password"
+                        name="password"
                         placeholder="password"
+                        onChange={handleChange}
                         className="w-full mt-1 px-3 py-2 border rounded-lg focus:outline-none focus:ring-1 focus:ring-[#9BFD34] focus:border-[#9BFD34] pl-10"
                     />
                     <img
@@ -107,7 +196,9 @@ export default function Register() {
                     <input
                         id="confirmpassword"
                         type="password"
+                        name="confirmpassword"
                         placeholder="confirm password"
+                        onChange={handleChange}
                         className="w-full mt-1 px-3 py-2 border rounded-lg focus:outline-none focus:ring-1 focus:ring-[#9BFD34] focus:border-[#9BFD34] pl-10"
                     />
                     <img
@@ -116,9 +207,18 @@ export default function Register() {
                         className="absolute left-1 top-1/2 transform -translate-y-1/2 text-gray-500"
                     />
                 </div>
+                {/* message popup */}
+                {message && (
+                    <>
+                            <div className="p-6 text-red">
+                                <p><strong>{message}</strong> </p>
+                            </div>
+        
+                    </>
+                )}
 
                 {/* Login Button */}
-                <button className="w-full bg-gradient-to-t from-[#9BFD34] via-[#B6FA33] to-[#C3F933] text-white py-2 rounded-lg font-medium focus:border-none hover:border-none">
+                <button onSubmit={HandleRegister} onClick={HandleRegister} className="w-full bg-gradient-to-t from-[#9BFD34] via-[#B6FA33] to-[#C3F933] text-white py-2 rounded-lg font-medium focus:border-none hover:border-none">
                     Sign up
                 </button>
 
@@ -134,7 +234,7 @@ export default function Register() {
                 {/* Signup Link */}
                 <p className="mt-6 text-sm text-center text-gray-500">
                     Already have an account?{" "}
-                    <a href="#" onClick={goToLoginpage}className="text-[#9BFD34] hover:underline">
+                    <a href="#" onClick={goToLoginpage} className="text-[#9BFD34] hover:underline">
                         Login
                     </a>
                 </p>

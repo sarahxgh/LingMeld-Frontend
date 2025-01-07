@@ -5,24 +5,25 @@ import { useLocation } from "react-router-dom";
 import axios from "axios";
 import MCQuizCard from "../Components/MCQuizCard";
 import WAQuizCard from "../Components/WAQuizCard";
+import MCTranslationQuizCard from "../Components/MCTranslationQuizCard";
+import WATranslationQuizCard from "../Components/WATranslationQuizCard";
 
 function QuizzingPage() {
   const [Loading, setLoading] = useState(true);
   const [Error, setError] = useState(false);
   const [quizData, setQuizData] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [attempts, setAttempts] = useState(0);
   const location = useLocation();
   const data = location.state;
   const Category = data["category"];
   const type = data["type"];
 
-  // Use a ref to track if the data has already been fetched
   const hasFetchedData = useRef(false);
 
   useEffect(() => {
-    // Only fetch data if Category and type are valid and data hasn't been fetched yet
     if (Category && type && !hasFetchedData.current) {
-      hasFetchedData.current = true; // Mark data as fetched
+      hasFetchedData.current = true;
 
       const fetchQuizData = async () => {
         try {
@@ -44,7 +45,6 @@ function QuizzingPage() {
           );
 
           setQuizData(JSON.parse(response.data));
-          console.log(response.data);
         } catch (err) {
           setError("Failed to fetch quiz data.");
           console.error(err);
@@ -55,16 +55,13 @@ function QuizzingPage() {
 
       fetchQuizData();
     }
-  }, [Category, type]); // Run only when Category or type changes
-
-  const handlePrevious = () => {
-    setCurrentIndex((prevIndex) => (prevIndex > 0 ? prevIndex - 1 : 0));
-  };
+  }, [Category, type]);
 
   const handleNext = () => {
     setCurrentIndex((prevIndex) =>
       prevIndex < quizData.exercises.length - 1 ? prevIndex + 1 : prevIndex
     );
+    setAttempts(0);
   };
 
   if (Loading) {
@@ -81,38 +78,59 @@ function QuizzingPage() {
     <div className="relative w-full flex flex-col items-center">
       <h1 className="text-2xl font-bold mb-4">Quiz Slider</h1>
 
-      {/* Render Quiz Card only if quizData is available */}
       {quizData && currentExercise && (
         <>
-          {currentExercise["exercise type"] === "multiple choices" && (
-            <MCQuizCard
-              instructions={quizData.instructions}
-              sentence={currentExercise.sentence}
-              options={currentExercise.options}
-              solution={currentExercise.solution}
-            />
-          )}
-          {currentExercise["exercise type"] === "writing an answer" && (
-            <WAQuizCard
-              instructions={quizData.instructions}
-              sentence={currentExercise.sentence}
-              solution={currentExercise.solution}
-            />
+          {Category === "Translation" ? (
+            currentExercise["exercise_type"] === "multiple choices" ? (
+              <MCTranslationQuizCard
+                type={type}
+                instructions={quizData.instructions}
+                source_sentence={currentExercise.source_sentence}
+                target_sentence={currentExercise.target_sentence}
+                options={currentExercise.options}
+                solution={currentExercise.solution}
+                attempts={attempts}
+                setAttempts={setAttempts}
+                handleNext={handleNext}
+              />
+            ) : (
+              <WATranslationQuizCard
+                type={type}
+                instructions={quizData.instructions}
+                source_sentence={currentExercise.source_sentence}
+                target_sentence={currentExercise.target_sentence}
+                solution={currentExercise.solution}
+                attempts={attempts}
+                setAttempts={setAttempts}
+                handleNext={handleNext}
+              />
+            )
+          ) : (
+            currentExercise["exercise_type"] === "multiple choices" ? (
+              <MCQuizCard
+                type={type}
+                instructions={quizData.instructions}
+                sentence={currentExercise.sentence}
+                options={currentExercise.options}
+                solution={currentExercise.solution}
+                attempts={attempts}
+                setAttempts={setAttempts}
+                handleNext={handleNext}
+              />
+            ) : (
+              <WAQuizCard
+                type={type}
+                instructions={quizData.instructions}
+                sentence={currentExercise.sentence}
+                solution={currentExercise.solution}
+                attempts={attempts}
+                setAttempts={setAttempts}
+                handleNext={handleNext}
+              />
+            )
           )}
 
-          {/* Navigation Arrows */}
-          <div className="flex justify-between w-full mt-4">
-            <button
-              onClick={handlePrevious}
-              disabled={currentIndex === 0}
-              className={`px-4 py-2 rounded-lg ${
-                currentIndex === 0
-                  ? "bg-gray-300 cursor-not-allowed"
-                  : "bg-blue-500 text-white hover:bg-blue-700"
-              }`}
-            >
-              Previous
-            </button>
+          <div className="flex flex-row justify-right w-full mt-4">
             <button
               onClick={handleNext}
               disabled={currentIndex === quizData.exercises.length - 1}
@@ -126,7 +144,6 @@ function QuizzingPage() {
             </button>
           </div>
 
-          {/* Progress Indicator */}
           <div className="mt-4 text-gray-600">
             {currentIndex + 1} of {quizData.exercises.length}
           </div>

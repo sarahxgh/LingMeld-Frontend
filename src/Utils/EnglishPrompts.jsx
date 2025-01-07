@@ -43,6 +43,7 @@ export const prompts = {
     {
       "id": "exercise_number",
       "sentence": "The word in the sentence to be replaced.",
+      "exercise type" : "multiple choices or writing an answer "
       "options": ["option_1", "option_2", "option_3", "option_4"],
       solution: {
         correct_option: "The correct answer choice from the options provided.",
@@ -257,8 +258,8 @@ avoid putting the index of the correct option in the correct_option field
     {
       "id": "exercise_number",
       "sentence": "The sentence with jumbled words or phrases.",
-      "exercise type" : "multiple choices or writing an answer "
-      "options": ["option_1", "option_2", "option_3", "option_4"],
+      "exercise type" : "multiple choices or writing an answer"
+      "options" : "options in case the exercise is multiple choices",
       solution: {
         correct_option: "The correct answer choice from the options provided.",
         explanation: "A detailed explanation of why the selected answer is correct, outlining the reasoning behind the choice.",
@@ -336,7 +337,7 @@ Provide the response following exactly this format, do not output anything extra
     {
       "id": "exercise_number",
       "sentence": "The sentence with a blank or multiple options for tense.",
-      "exercise type" : "multiple choices or writing an answer "
+      "exercise type" : "multiple choices or writing an answer"
       "options" : "options of tense in case the exercise is multiple choices",
       "solution": {
         "correct_option": "The correct tense form to be used in the sentence.",
