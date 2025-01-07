@@ -1,10 +1,12 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { prompts } from "../Utils/EnglishPrompts";
+import { translationPrompts } from "../Utils/TranslationPrompts";
 import { useLocation } from "react-router-dom";
-import { useState } from "react";
 import axios from "axios";
 import MCQuizCard from "../Components/MCQuizCard";
 import WAQuizCard from "../Components/WAQuizCard";
+import MCTranslationQuizCard from "../Components/MCTranslationQuizCard";
+import WATranslationQuizCard from "../Components/WATranslationQuizCard";
 import { UserAnswerContext } from "../Assessment context/userAnswersContext";
 import { useContext } from "react";
 import { AuthContext } from "../Auth/AuthContext";
@@ -22,6 +24,8 @@ function QuizzingPage() {
   const { addUserAnswer, userAnswers } = useContext(UserAnswerContext);
   const { email } = useContext(AuthContext)
 
+  const hasFetchedData = useRef(false);
+
   useEffect(() => {
     const fetchQuizData = async () => {
       try {
@@ -36,11 +40,18 @@ function QuizzingPage() {
             }
           }
         );
+        
+        let prompt = "";
+          if (Category === "Translation") {
+            prompt = translationPrompts[type];
+          } else {
+            prompt = prompts[Category][type];
+          }
 
         const response = await axios.post(
           'http://localhost:5000/quiz-data/',
           {
-            prompt: prompts[Category][type].replace("{{ student_level }}", level.data.evaluation),
+            prompt: prompt.replace("{{ student_level }}", level.data.evaluation),
           },
           {
             headers: {
@@ -123,30 +134,58 @@ function QuizzingPage() {
     <div className="relative w-full flex flex-col items-center">
       <h1 className="text-2xl font-bold mb-4">Quiz Slider</h1>
 
-      {/* Render Quiz Card only if quizData is available */}
-      {quizData && currentExercise && currentIndex <= quizData.exercises.length && (
+      {quizData && currentExercise && (
         <>
-          {(currentExercise["exercise type"] == "multiple choices") && (<MCQuizCard
-            type={type}
-            instructions={quizData.instructions}
-            sentence={currentExercise.sentence}
-            options={currentExercise.options}
-            solution={currentExercise.solution}
-            attempts={attempts}
-            setAttempts={setAttempts}
-            handleNext={handleNext}
-          />)}
-          {(currentExercise["exercise type"] == "writing an answer") && (<WAQuizCard
-            type={type}
-            instructions={quizData.instructions}
-            sentence={currentExercise.sentence}
-            solution={currentExercise.solution}
-            attempts={attempts}
-            setAttempts={setAttempts}
-            handleNext={handleNext}
-          />)}
-
-          {/* Navigation Arrows */}
+          {Category === "Translation" ? (
+            currentExercise["exercise_type"] === "multiple choices" ? (
+              <MCTranslationQuizCard
+                type={type}
+                instructions={quizData.instructions}
+                source_sentence={currentExercise.source_sentence}
+                target_sentence={currentExercise.target_sentence}
+                options={currentExercise.options}
+                solution={currentExercise.solution}
+                attempts={attempts}
+                setAttempts={setAttempts}
+                handleNext={handleNext}
+              />
+            ) : (
+              <WATranslationQuizCard
+                type={type}
+                instructions={quizData.instructions}
+                source_sentence={currentExercise.source_sentence}
+                target_sentence={currentExercise.target_sentence}
+                solution={currentExercise.solution}
+                attempts={attempts}
+                setAttempts={setAttempts}
+                handleNext={handleNext}
+              />
+            )
+          ) : (
+            currentExercise["exercise_type"] === "multiple choices" ? (
+              <MCQuizCard
+                type={type}
+                instructions={quizData.instructions}
+                sentence={currentExercise.sentence}
+                options={currentExercise.options}
+                solution={currentExercise.solution}
+                attempts={attempts}
+                setAttempts={setAttempts}
+                handleNext={handleNext}
+              />
+            ) : (
+              <WAQuizCard
+                type={type}
+                instructions={quizData.instructions}
+                sentence={currentExercise.sentence}
+                solution={currentExercise.solution}
+                attempts={attempts}
+                setAttempts={setAttempts}
+                handleNext={handleNext}
+              />
+            )
+          )}
+          
           <div className="flex flex-row justify-right w-full mt-4">
             <button
               onClick={handleNext}
@@ -160,7 +199,6 @@ function QuizzingPage() {
             </button>
           </div>
 
-          {/* Progress Indicator */}
           <div className="mt-4 text-gray-600">
             {currentIndex + 1} of {quizData.exercises.length}
           </div>

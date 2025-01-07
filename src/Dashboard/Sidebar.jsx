@@ -47,6 +47,10 @@ const Sidebar = () => {
     }else if ( label == "Dashboard"){
       navigate('/dashboard');
     }
+
+    else if ( label == "Settings"){
+      navigate('/Settings');
+    }
     else if ( label == "PDF Translation"){
       navigate('/pdftranslation')
     }

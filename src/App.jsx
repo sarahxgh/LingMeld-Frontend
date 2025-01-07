@@ -10,6 +10,9 @@ import LearningPage from './Dashboard/LearningPage';
 import DashboardPage from './Dashboard/DashboardPage';
 import Details from './Learning/Details';
 import QuizzingPage from './Learning/QuizzingPage';
+
+import SettingsPage from './Dashboard/SettingsPage';
+import Translation from './Learning/Translation'
 import EnglishEnforcement from './Learning/EnEnforcement';
 import { UserAnswerProvider } from './Assessment context/userAnswersContext';
 import {  AuthProvider } from './Auth/AuthContext';
@@ -29,6 +32,7 @@ function App() {
               <Route path="/EnEnforcement" element={<EnglishEnforcement />} />
               <Route path='/Details' element={<Details />} />
               <Route path='/QuizzingPage' element={<QuizzingPage />} />
+                <Route path='/translation' element={<Translation/>}/>
               <Route path='/pdftranslation' element={<TranslatorApp />} />
             </Route> {/* Define the layout of the dashboard pages */}
 
