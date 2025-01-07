@@ -13,6 +13,7 @@ import QuizzingPage from './Learning/QuizzingPage';
 import EnglishEnforcement from './Learning/EnEnforcement';
 import { UserAnswerProvider } from './Assessment context/userAnswersContext';
 import {  AuthProvider } from './Auth/AuthContext';
+import TranslatorApp from './Dashboard/PdfTranslationPage'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -28,6 +29,7 @@ function App() {
               <Route path="/EnEnforcement" element={<EnglishEnforcement />} />
               <Route path='/Details' element={<Details />} />
               <Route path='/QuizzingPage' element={<QuizzingPage />} />
+              <Route path='/pdftranslation' element={<TranslatorApp />} />
             </Route> {/* Define the layout of the dashboard pages */}
 
             <Route index element={<HomePage />} />
