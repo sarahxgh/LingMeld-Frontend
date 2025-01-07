@@ -1,19 +1,20 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useEffect } from 'react';
 import axios from 'axios';
 import { useState } from 'react';
+import { AuthContext } from '../Auth/AuthContext';
 
 const Header = (page) => {
   const [picture, setpicture] = useState("")
   page = "Dashboard"
-  const email = localStorage.getItem('email')
+  const {email} = useContext(AuthContext)
 
   useEffect(() => {
     console.log(email)
     const fetchuserData = async () => {
       try {
         const response = await axios.post('http://127.0.0.1:8000/user/get-user-data/', {
-          "email": email
+          "email": email? email : localStorage.getItem('email')
         }, {
           headers: {
             'Content-Type': 'application/json',

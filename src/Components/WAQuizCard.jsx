@@ -1,14 +1,15 @@
 import React, { useState } from "react";
 import { UserAnswerContext } from "../Assessment context/userAnswersContext";
 import { useContext } from "react";
+import { saveAs } from "file-saver";
 
 // writing an answer quizz card
-function WAQuizCard({ type , instructions, sentence, solution, attempts, setAttempts, handleNext }) {
+function WAQuizCard({ type, instructions, sentence, solution, attempts, setAttempts, handleNext }) {
     const [userAnswer, setUserAnswer] = useState('');
     const [isAnswered, setIsAnswered] = useState(false);
     const [feedback, setFeedback] = useState('');
     const [explanation, setExplanation] = useState('');
-    const { addUserAnswer } = useContext(UserAnswerContext);
+    const { addUserAnswer, userAnswers } = useContext(UserAnswerContext);
 
     const closePopup = () => {
         setIsAnswered(false);
@@ -23,7 +24,6 @@ function WAQuizCard({ type , instructions, sentence, solution, attempts, setAtte
     };
 
     const handleSubmit = () => {
-        console.log("the number of teh attempts :",attempts)
         setIsAnswered(true);
         const correctOption = solution.correct_option;
 
@@ -39,6 +39,8 @@ function WAQuizCard({ type , instructions, sentence, solution, attempts, setAtte
         if (attempts >= 2) {
             handleNext();  // Automatically go to next question after two attempts
         }
+        addUserAnswer(type, instructions, sentence, solution.correct_option, userAnswer);
+        setUserAnswer('')
     };
 
     return (
@@ -55,11 +57,10 @@ function WAQuizCard({ type , instructions, sentence, solution, attempts, setAtte
                     <div className="mt-4">
                         <input
                             type="text"
+                            name="useranswers"
                             value={userAnswer}
-                            onChange={() => {
-                                handleAnswerChange();
-                                addUserAnswer(instructions + "\n" + sentence, solution.correct_option, userAnswer);
-
+                            onChange={(e) => {
+                                handleAnswerChange(e);
                             }
 
                             }

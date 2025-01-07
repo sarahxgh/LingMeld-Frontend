@@ -15,31 +15,35 @@ import SettingsPage from './Dashboard/SettingsPage';
 import Translation from './Learning/Translation'
 import EnglishEnforcement from './Learning/EnEnforcement';
 import { UserAnswerProvider } from './Assessment context/userAnswersContext';
+import {  AuthProvider } from './Auth/AuthContext';
+import TranslatorApp from './Dashboard/PdfTranslationPage'
 
 function App() {
   const [count, setCount] = useState(0)
 
   return (
-    <UserAnswerProvider>
-    <Router>
-      <Routes>
-        <Route path="/" element={<DashboardLayout/>}>
-        <Route path="/dashboard" element={<DashboardPage/>}/>
-        <Route path="/Learning" element={<LearningPage/>} />
-        <Route path="/EnEnforcement" element={<EnglishEnforcement/>} />
-        <Route path='/Details' element={<Details/>}/>
-        <Route path='/QuizzingPage' element={<QuizzingPage/>}/>
-        <Route path='/translation' element={<Translation/>}/>
-        <Route path='/Settings' element={<SettingsPage/>} />
-        </Route> {/* Define the layout of the dashboard pages */}
+    <AuthProvider>
+      <UserAnswerProvider>
+        <Router>
+          <Routes>
+            <Route path="/" element={<DashboardLayout />}>
+              <Route path="/dashboard" element={<DashboardPage />} />
+              <Route path="/Learning" element={<LearningPage />} />
+              <Route path="/EnEnforcement" element={<EnglishEnforcement />} />
+              <Route path='/Details' element={<Details />} />
+              <Route path='/QuizzingPage' element={<QuizzingPage />} />
+                <Route path='/translation' element={<Translation/>}/>
+              <Route path='/pdftranslation' element={<TranslatorApp />} />
+            </Route> {/* Define the layout of the dashboard pages */}
 
-        <Route index element={<HomePage />} />
-        <Route path="/Login" element={<LoginPage/>} />
-        <Route path="/Register" element={<Register/>} />
-      </Routes>
+            <Route index element={<HomePage />} />
+            <Route path="/Login" element={<LoginPage />} />
+            <Route path="/Register" element={<Register />} />
+          </Routes>
 
-    </Router>
-    </UserAnswerProvider>
+        </Router>
+      </UserAnswerProvider>
+    </AuthProvider>
   )
 }
 

@@ -7,6 +7,9 @@ import MCQuizCard from "../Components/MCQuizCard";
 import WAQuizCard from "../Components/WAQuizCard";
 import MCTranslationQuizCard from "../Components/MCTranslationQuizCard";
 import WATranslationQuizCard from "../Components/WATranslationQuizCard";
+import { UserAnswerContext } from "../Assessment context/userAnswersContext";
+import { useContext } from "react";
+import { AuthContext } from "../Auth/AuthContext";
 
 function QuizzingPage() {
   const [Loading, setLoading] = useState(true);
@@ -18,44 +21,97 @@ function QuizzingPage() {
   const data = location.state;
   const Category = data["category"];
   const type = data["type"];
+  const { addUserAnswer, userAnswers } = useContext(UserAnswerContext);
+  const { email } = useContext(AuthContext)
 
   const hasFetchedData = useRef(false);
 
   useEffect(() => {
-    if (Category && type && !hasFetchedData.current) {
-      hasFetchedData.current = true;
-
-      const fetchQuizData = async () => {
-        try {
-          let prompt = "";
+    const fetchQuizData = async () => {
+      try {
+        const level = await axios.post(
+          'http://127.0.0.1:8000/user/GetEvaluation/',
+          {
+            email: email ? email : localStorage.getItem("email"),
+          },
+          {
+            headers: {
+              'Content-Type': 'application/json',
+            }
+          }
+        );
+        
+        let prompt = "";
           if (Category === "Translation") {
             prompt = translationPrompts[type];
           } else {
             prompt = prompts[Category][type];
           }
 
+        const response = await axios.post(
+          'http://localhost:5000/quiz-data/',
+          {
+            prompt: prompt.replace("{{ student_level }}", level.data.evaluation),
+          },
+          {
+            headers: {
+              'Content-Type': 'application/json',
+            }
+          }
+        );
+        setQuizData(JSON.parse(response.data)); // Parse and set quiz data
+      } catch (err) {
+        setError("Failed to fetch quiz data.");
+        console.error(err);
+      } finally {
+        setLoading(false); // Ensure loading state is updated
+      }
+    };
+
+
+
+    // Fetch quiz data initially
+    fetchQuizData();
+
+  }, [Category, type]); // this to tell that we will fetch the data everytime Category or type changes 
+
+  useEffect(() => {
+    const saveAnswers = async () => {
+      try {
+
+        if (userAnswers && userAnswers.length > 0 ) {
+          console.log('inside request')
           const response = await axios.post(
-            "http://localhost:5000/quiz-data/",
-            { prompt },
+            'http://127.0.0.1:8000/user/save-user-answers/',
+            {
+              email: email ? email : localStorage.getItem("email"),
+              answers: userAnswers,
+            },
             {
               headers: {
-                "Content-Type": "application/json",
-              },
+                'Content-Type': 'application/json',
+              }
             }
           );
-
-          setQuizData(JSON.parse(response.data));
-        } catch (err) {
-          setError("Failed to fetch quiz data.");
-          console.error(err);
-        } finally {
-          setLoading(false);
+          if (response.data.success) {
+            localStorage.setItem("useranswers", userAnswers)
+            console.log(response.data.message)
+          } else {
+            console.log(response.data.message)
+          }
+          console.log(response.data.message)
         }
-      };
+      } catch (err) {
+        console.error("Failed to save user answers:", err);
+      }
+    };
+    const interval = setInterval(() => {
+      saveAnswers();
+    }, 100000);
 
-      fetchQuizData();
-    }
-  }, [Category, type]);
+    return () => clearInterval(interval);
+
+  });
 
   const handleNext = () => {
     setCurrentIndex((prevIndex) =>
@@ -129,16 +185,15 @@ function QuizzingPage() {
               />
             )
           )}
-
+          
           <div className="flex flex-row justify-right w-full mt-4">
             <button
               onClick={handleNext}
               disabled={currentIndex === quizData.exercises.length - 1}
-              className={`px-4 py-2 rounded-lg ${
-                currentIndex === quizData.exercises.length - 1
-                  ? "bg-gray-300 cursor-not-allowed"
-                  : "bg-blue-500 text-white hover:bg-blue-700"
-              }`}
+              className={`px-4 py-2 rounded-lg ${currentIndex === quizData.exercises.length - 1
+                ? "bg-gray-300 cursor-not-allowed"
+                : "bg-blue-500 text-white hover:bg-blue-700"
+                }`}
             >
               Next
             </button>

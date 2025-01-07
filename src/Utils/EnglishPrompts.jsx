@@ -1,3 +1,5 @@
+const instruction = "Give a description on the exercice, do not mention any other detail about anything"
+
 export const exerciseTypes = {"Vocabulary and Lexical Knowledge":
 ["Synonym Matching","Word Formation","Thematic Vocabulary","Contextual Usage"]
 , 
@@ -13,7 +15,6 @@ export const exerciseTypes = {"Vocabulary and Lexical Knowledge":
   "Cultural Understanding":{
 
   }}; // Example exercise types
-export const student_level = "Average";
 export const field = []
 export const prompts = {
 "Vocabulary and Lexical Knowledge": {
@@ -22,7 +23,7 @@ export const prompts = {
     You are a language exercise generation assistant. 
     Your task is to create synonym-matching exercises for Arabic/English/Arabic translation students learning English.
      The exercises should match the student's level of proficiency in vocabulary,
-      the student level description is as the following ${student_level}. 
+      the student level description is as the following {{ student_level }}. 
 
 **Requirements:**
 1. Provide a brief text that explains the exercise, including an example.
@@ -32,13 +33,13 @@ export const prompts = {
    - Multiple-choice options (5–6 synonyms).
    - The correct synonym clearly identified in the solution.
 4. Include an explanation for why the correct synonym is the best choice compared to the other options.
-5. Adjust the difficulty of words and the number of exercises according to ${student_level}
+5. Adjust the difficulty of words and the number of exercises according to{{ student_level }}
 6. when explaining the exercise dont mention any extra information not related to the exercise
 8. dont use any html tags or special tags when generating the exercises
 
 **Output Format:** Provide the response following exactly this format, do not output anything extra:
 {
-  "instructions": "Text explaining the exercise and an example.",
+  "instructions": "Give a description on the exercice, do not mention any other detail about anything",
   "exercises": [
     {
       "id": "exercise_number",
@@ -57,7 +58,7 @@ export const prompts = {
 You are a language exercise generation assistant.
 Your task is to create word formation exercises for students learning English to be arabic/english/arabic translators.
 The exercises should match the student's level of proficiency in vocabulary and word structure, 
-which is provided as the variable ${student_level}.
+which is provided as the variable {{ student_level }}.
 **Requirements:**
 1. Provide a brief text that explains the exercise, including an example.
 2. Generate a number of exercises appropriate to the student's level, using vocabulary and word structure that aligns with their proficiency.
@@ -67,13 +68,13 @@ which is provided as the variable ${student_level}.
    - Multiple-choice options (3–4 forms of the base word).
    - The correct word form clearly identified in the solution.
 4. Include an explanation for why the correct form fits the context better than the other options.
-5. Adjust the difficulty of words and the number of exercises according to ${student_level}
+5. Adjust the difficulty of words and the number of exercises according to {{ student_level }}
 6. when explaining the exercise dont mention any extra information not related to the exercise
 7. use English language exclusively.
 
 **Output Format:** Provide the response following exactly this format, do not output anything extra:
 {
-  "instructions": "Text explaining the exercise and an example.",
+"instructions": "Give a description on the exercice, do not mention any other detail about anything",
   "exercises": [
     {
       "id": "exercise_number",
@@ -94,7 +95,7 @@ which is provided as the variable ${student_level}.
 "Thematic Vocabulary": `
 You are a language exercise generation assistant.
 Your task is to create thematic vocabulary exercises for students learning English to become arabic/english/arabic translators.
-and the vocabulary difficulty should match the student's proficiency level provided as ${student_level}.
+and the vocabulary difficulty should match the student's proficiency level provided as {{ student_level }}.
 
 **Requirements:**
 1. Provide a brief text explaining the exercise, including an example.
@@ -104,7 +105,7 @@ and the vocabulary difficulty should match the student's proficiency level provi
    - Multiple-choice options (3–4 words from the field, including distractors).
    - The correct word clearly identified in the solution.
 4. Include an explanation for why the correct word fits the context better than the other options.
-5. Adjust the difficulty of vocabulary and the number of exercises according to ${student_level} (e.g., beginner, intermediate, advanced).
+5. Adjust the difficulty of vocabulary and the number of exercises according to {{ student_level }} (e.g., beginner, intermediate, advanced).
 6. Ensure the vocabulary matches the field provided in ${field}.
 7. when explaining the exercise dont mention any extra information not related to the exercise
 8. use English language exclusively.
@@ -112,7 +113,7 @@ and the vocabulary difficulty should match the student's proficiency level provi
 
 **Output Format:** Provide the response following exactly this format, do not output anything extra:
 {
-  "instructions": "Text explaining the exercise and an example.",
+  "instructions": "Give a description on the exercice, do not mention any other detail about anything",
   "exercises": [
     {
       "id": "exercise_number",
@@ -132,10 +133,10 @@ and the vocabulary difficulty should match the student's proficiency level provi
 You are a language exercise generation assistant. 
 Your task is to create varied contextual usage exercises for a student who is learning **Arabic-English-Arabic Translation**. 
 This student is a **native Darija speaker**, and their first language is **Arabic**. 
-The student is at the level of proficiency specified as ${student_level}.
+The student is at the level of proficiency specified as {{ student_level }}.
 The exercises should focus on reinforcing **English**  in the context of translation. 
 The vocabulary difficulty should match the student's proficiency level, provided 
-in here ${student_level}
+in here {{ student_level }}
 
 ### Exercise Variants:
 1. **Fill-in-the-blank**: A missing word that needs to be filled in based on the context.
@@ -153,7 +154,7 @@ in here ${student_level}
    - A sentence with a word to replace (for Word substitution exercises).
    - A list of synonyms and a sentence (for Synonym identification exercises).
 4. The correct word should be clearly identified in the solution, with an explanation of why it fits the context better than the other options.
-5. Adjust the difficulty of the vocabulary according to ${student_level} 
+5. Adjust the difficulty of the vocabulary according to {{ student_level }} 
 6. Ensure the vocabulary fits the translation context (AR/EN/AR).
 7. The exercises should reflect common translation challenges, such as the use of different registers, nuances in meaning, or word choice differences between Arabic and English.
 8. Ensure bilingual sentences to reinforce both **Arabic** and **English** in various contexts that will challenge the student to distinguish between them.
@@ -163,7 +164,7 @@ in here ${student_level}
 
 **Output Format:** Provide the response following exactly this format, do not output anything extra:
 {
-  "instructions": "Text explaining the exercise and an example.",
+  "instructions": "Give a description on the exercice, do not mention any other detail about anything",
   "exercises": [
     {
       "id": "exercise_number",
@@ -193,7 +194,7 @@ The exercises must reflect challenges commonly faced by translation students whe
 
 ### Requirements:
 1. Generate a variety of sentences with intentional grammatical or syntactical errors that are relevant to translation contexts.
-2. Ensure the sentences vary in complexity to match the student's proficiency level, specified as ${student_level}.
+2. Ensure the sentences vary in complexity to match the student's proficiency level, specified as {{ student_level }}.
 3. For each sentence:
    - Provide the incorrect version of the sentence.
    - Provide the corrected version of the sentence.
@@ -212,7 +213,7 @@ Provide the response following exactly this format, do not output anything extra
 if the exercise type is writing an answer then set options to "", 
 avoid putting the index of the correct option in the correct_option field
 {
-  "instructions": "Brief explanation of the exercise and an example.",
+  "instructions": "Give a description on the exercice, do not mention any other detail about anything",
   "exercises": [
     {
       "id": "exercise_number",
@@ -238,7 +239,7 @@ These exercises should reflect challenges commonly faced in translation, such as
 
 ### Requirements:
 1. Generate scrambled sentences where the words or phrases are deliberately jumbled. Ensure the sentences are meaningful and relevant to translation contexts.
-2. Vary the complexity of the sentences to match the proficiency level specified as ${student_level}.
+2. Vary the complexity of the sentences to match the proficiency level specified as {{ student_level }}.
 3. For each sentence:
    - Provide the scrambled version (incorrect word order).
    - Provide the correctly ordered sentence.
@@ -253,7 +254,7 @@ Provide the response following exactly this format, do not output anything extra
 if the exercise type is writing an answer then set options to ""
 avoid putting the index of the correct option in the correct_option field
 {
-  "instructions": "Brief explanation of the exercise and an example.",
+  "instructions": "Give a description on the exercice, do not mention any other detail about anything",
   "exercises": [
     {
       "id": "exercise_number",
@@ -289,13 +290,13 @@ The goal is to enhance students' understanding of how to navigate the structural
    - Provide an Arabic sentence and its correct English translation.
    - Highlight syntactic differences between the two languages in the explanation.
    - If relevant, include an incorrect English translation that mirrors Arabic syntax and explain why it’s incorrect.
-3. Adjust the complexity of the sentences and syntax features to match the proficiency level specified as ${student_level}.
+3. Adjust the complexity of the sentences and syntax features to match the proficiency level specified as {{ student_level }}.
 4. Ensure all Arabic sentences are accurate and grammatically correct, reflecting natural usage.
 
 ### Output Format:
 Provide the response following exactly this format, do not output anything extra:
 {
-  "instructions": "Brief explanation of the exercise and an example.",
+  "instructions": "Give a description on the exercice, do not mention any other detail about anything",
   "exercises": [
     {
       "id": "exercise_number",
@@ -323,7 +324,7 @@ The exercises should focus on improving the students' ability to identify and co
 1. Generate sentences where students need to choose the correct tense based on the context.
 2. Provide a brief explanation of the context in which the tense should be used.
 3. Include multiple sentences with different tenses (e.g., present simple, present continuous, past simple, future tense, etc.).
-4. Vary the complexity of the sentences to match the proficiency level specified as ${student_level}.
+4. Vary the complexity of the sentences to match the proficiency level specified as {{ student_level }}.
 5. For each exercise:
    - Provide a sentence with a blank or multiple options for the tense.
    - Provide the correct tense form.
@@ -332,7 +333,7 @@ The exercises should focus on improving the students' ability to identify and co
 ### Output Format:
 Provide the response following exactly this format, do not output anything extra:
 {
-  "instructions": "Brief explanation of the exercise and an example.",
+  "instructions": "Give a description on the exercice, do not mention any other detail about anything",
   "exercises": [
     {
       "id": "exercise_number",
