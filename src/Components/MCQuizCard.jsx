@@ -3,8 +3,8 @@ import { useState } from "react";
 import { useContext } from "react";
 import { UserAnswerContext } from "../Assessment context/userAnswersContext";
 // multiple choices quizz card
-function MCQuizCard({ type, instructions, sentence, options, solution, attempts, setAttempts, handleNext }) {
-    const { addUserAnswer,userAnswers } = useContext(UserAnswerContext);
+function MCQuizCard({ type, instructions, sentence, options, solution, attempts, setAttempts }) {
+    const { addUserAnswer } = useContext(UserAnswerContext);
 
     const [selectedOption, setSelectedOption] = useState(null);
     const [isAnswered, setIsAnswered] = useState(false);
@@ -32,6 +32,8 @@ function MCQuizCard({ type, instructions, sentence, options, solution, attempts,
             setExplanation(solution.wrong_answer_explanation);
             setAttempts((prevAttempts) => prevAttempts + 1);
         }
+        addUserAnswer(type, instructions, sentence, solution.correct_option, option);
+
     };
 
 
@@ -44,22 +46,14 @@ function MCQuizCard({ type, instructions, sentence, options, solution, attempts,
                 </section>
 
                 <div className="mt-6">
-                    <p className="text-xl">{sentence}</p>
+                    <p className="text-xl text-black">{sentence}</p>
                     <div className="mt-4">
                         {options.map((option, index) => (
                             <button
                                 key={index}
                                 disabled={isAnswered || attempts >= 2}
                                 className={`mt-2 px-6 py-3 w-full bg-white text-green-600 rounded hover:bg-gray-100 ${selectedOption === option ? 'bg-gray-200' : ''}`}
-                                onClick={() => {
-                                    handleOptionClick(option);
-                                    if(attempts>1){
-                                        addUserAnswer(instructions + "\n" + sentence, solution.correct_option, option);
-
-                                    }
-                                    console.log(userAnswers)
-                                }
-                                }
+                                onClick={() => handleOptionClick(option)}
                             >
                                 {option}
                             </button>

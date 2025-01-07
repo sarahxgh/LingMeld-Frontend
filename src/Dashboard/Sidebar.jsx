@@ -23,7 +23,7 @@ const Sidebar = () => {
     {
       href: '#quizzes',
       icon: 'https://cdn.builder.io/api/v1/image/assets/TEMP/0dc4aad32278700057c0bc5602aff5da5b2d4937a3aa25e4118361c6b5f21e1a',
-      label: 'Quizzes',
+      label: 'PDF Translation',
     },
   ];
 

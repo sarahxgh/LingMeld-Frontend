@@ -12,29 +12,32 @@ import Details from './Learning/Details';
 import QuizzingPage from './Learning/QuizzingPage';
 import EnglishEnforcement from './Learning/EnEnforcement';
 import { UserAnswerProvider } from './Assessment context/userAnswersContext';
+import {  AuthProvider } from './Auth/AuthContext';
 
 function App() {
   const [count, setCount] = useState(0)
 
   return (
-    <UserAnswerProvider>
-    <Router>
-      <Routes>
-        <Route path="/" element={<DashboardLayout/>}>
-        <Route path="/dashboard" element={<DashboardPage/>}/>
-        <Route path="/Learning" element={<LearningPage/>} />
-        <Route path="/EnEnforcement" element={<EnglishEnforcement/>} />
-        <Route path='/Details' element={<Details/>}/>
-        <Route path='/QuizzingPage' element={<QuizzingPage/>}/>
-        </Route> {/* Define the layout of the dashboard pages */}
+    <AuthProvider>
+      <UserAnswerProvider>
+        <Router>
+          <Routes>
+            <Route path="/" element={<DashboardLayout />}>
+              <Route path="/dashboard" element={<DashboardPage />} />
+              <Route path="/Learning" element={<LearningPage />} />
+              <Route path="/EnEnforcement" element={<EnglishEnforcement />} />
+              <Route path='/Details' element={<Details />} />
+              <Route path='/QuizzingPage' element={<QuizzingPage />} />
+            </Route> {/* Define the layout of the dashboard pages */}
 
-        <Route index element={<HomePage />} />
-        <Route path="/Login" element={<LoginPage/>} />
-        <Route path="/Register" element={<Register/>} />
-      </Routes>
+            <Route index element={<HomePage />} />
+            <Route path="/Login" element={<LoginPage />} />
+            <Route path="/Register" element={<Register />} />
+          </Routes>
 
-    </Router>
-    </UserAnswerProvider>
+        </Router>
+      </UserAnswerProvider>
+    </AuthProvider>
   )
 }
 

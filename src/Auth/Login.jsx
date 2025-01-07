@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import logo from "/logo.svg";
 import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "./AuthContext";
 import axios from "axios";
 export default function LoginPage() {
 // define the user information state 
@@ -8,6 +10,8 @@ export default function LoginPage() {
         "email":"", 
         "password" : "",
     })
+
+    const {setUserEmail, setUserImage} = useContext(AuthContext);
 
     // filling the form
     const handleChange = (e) => {
@@ -26,10 +30,8 @@ export default function LoginPage() {
                 console.log('login success')
 
                 localStorage.setItem("email",formData.email)
-                navigate("/dashboard",{state:{
-                    img : response.data['image'], 
-                    username : response.data['username']
-                }})
+                setUserEmail(formData.email)
+                navigate("/dashboard")
             }else{
                 console.log("login error")
                 console.log(response.data.message)

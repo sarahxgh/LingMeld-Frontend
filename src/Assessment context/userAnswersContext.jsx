@@ -9,11 +9,13 @@ export const UserAnswerProvider = ({ children }) => {
   const [userAnswers, setUserAnswers] = useState([]);
 
   // Function to add a new answer
-  const addUserAnswer = (exercise, correctAnswer, userAnswer) => {
+  const addUserAnswer = (type,instruction, sentence, correctAnswer, userAnswer) => {
     setUserAnswers((prevAnswers) => [
       ...prevAnswers,
       {
-        exercise,
+        type,
+        instruction,
+        sentence,
         correctAnswer,
         userAnswer,
       },

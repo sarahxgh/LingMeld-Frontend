@@ -13,7 +13,7 @@ export default function DashboardPage(){
       ];
 
     return (
-        <div className="mt-8 space-y-8 w-full">
+        <div className="bg-white mt-8 space-y-8 w-full">
               {/* Cards Section */}
               <section className="flex flex-wrap gap-6 items-start w-full">
                 <CommitmentCard />
