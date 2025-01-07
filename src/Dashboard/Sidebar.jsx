@@ -112,7 +112,6 @@ const Sidebar = () => {
 
       {/* Account Navigation */}
       <div className="mt-8 w-full">
-        <h3 className="text-xs text-gray-500 mb-3">ACCOUNT PAGES</h3>
         <ul className="list-none">
           {accountNavItems.map((item) => (
             <li key={item.href}>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './quiz.css';
-
+import { useContext } from 'react';
+import { UserAnswerContext } from '../Assessment context/userAnswersContext';
 export const quiz = {
   topic: 'English Proficiency Test',
   level: 'Intermediate',
@@ -442,6 +443,7 @@ export const quiz = {
 
 
 const TestPage = () => {
+  const {addUserAnswer } = useContext(UserAnswerContext)
   const [activeSection, setActiveSection] = useState('starter');
   const [selectedAnswers, setSelectedAnswers] = useState([]);
   const [writingAnswers, setWritingAnswers] = useState({});
