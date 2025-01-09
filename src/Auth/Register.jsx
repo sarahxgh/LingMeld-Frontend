@@ -54,7 +54,7 @@ export default function Register() {
                 }
 
             }else{
-                setMessage("password must much the confirm password feild")
+                setMessage("password must much the confirm password feald and you must upload an image")
             }
 
         } catch (e) {

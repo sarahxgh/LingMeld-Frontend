@@ -21,7 +21,7 @@ function Translation() {
 
   return (
     <div
-      className="bg-gray-100 py-2 rounded-lg flex flex-col bg-white justify-center"
+      className="bg-gray-100 py-2 rounded-lg flex flex-col justify-center"
       style={{ width: "calc(100vw - 260px)" }}
     >
       <div className="mt-6 grid grid-cols-2 bg-white p-10 sm:grid-cols-3 md:grid-cols-4 gap-6">

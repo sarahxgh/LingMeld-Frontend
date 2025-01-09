@@ -42,22 +42,26 @@ function QuizzingPage() {
         );
         
         let prompt = "";
-          if (Category === "Translation") {
-            prompt = translationPrompts[type];
-          } else {
-            prompt = prompts[Category][type];
-          }
+        if (Category === "Translation") {
+          prompt = translationPrompts[type];
+        } else {
+          prompt = prompts[Category][type];
+        }
+
+        if (level.data.evaluation === "") {
+          level.data.evaluation = "Average";
+        }
 
         const response = await axios.post(
-          'http://localhost:5000/quiz-data/',
-          {
-            prompt: prompt.replace("{{ student_level }}", level.data.evaluation),
-          },
-          {
-            headers: {
-              'Content-Type': 'application/json',
-            }
+        'http://localhost:5000/quiz-data/',
+        {
+          prompt: prompt.replace("{{ student_level }}", level.data.evaluation),
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
           }
+        }
         );
         setQuizData(JSON.parse(response.data)); // Parse and set quiz data
       } catch (err) {
