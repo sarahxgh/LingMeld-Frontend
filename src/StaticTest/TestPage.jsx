@@ -360,7 +360,7 @@ const calculateResult = async () => {
         {activeSection === 'starter' && (
         <div>
             <div className="timer-message">
-            <p className=' font-bold text-2xl mb-4'>Welcome to the Translation Skill Assessment Test!</p>
+            <p className=' font-bold text-2xl mb-4'>Welcome to the Assessment Test!</p>
             <br></br>
             <p>
                 This test is designed to evaluate your abilities in three key areas: 
