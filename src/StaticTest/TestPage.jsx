@@ -46,7 +46,7 @@ You are an assessment expert in Arabic-English-Arabic translation for students w
 
 
 const getEvaluations = async (exerciseType, studentResponses, correctAnswers, exerciseContent, modelUrl) => {
-  const api_key = "SG_d3b7b8ec5bbdd1f7";
+  const api_key = "";
 
   const data = {
     messages: [
